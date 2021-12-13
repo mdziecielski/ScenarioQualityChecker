@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"pl.put.poznan.checker.logic","l":"ScenarioQualityChecker"},{"p":"pl.put.poznan.checker.app","l":"ScenarioQualityCheckerApplication"},{"p":"pl.put.poznan.checker.rest","l":"ScenarioQualityCheckerController"}]
