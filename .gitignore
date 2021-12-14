@@ -27,3 +27,6 @@ Temporary Items
 
 #IntelliJ
 .idea
+
+#Maven
+target/maven-status
