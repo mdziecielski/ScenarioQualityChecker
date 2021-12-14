@@ -1,0 +1,71 @@
+{
+  "title": "Dodanie książki",
+  "actors": ["Bibliotekarz"],
+  "systemActor": "System",
+  "steps": [
+    {
+      "text": "Bibliotekarz wybiera opcje dodania nowej pozycji książkowej",
+      "subscenario": []
+    },
+
+    {
+      "text": "Wyświetla się formularz",
+      "subscenario": []
+    },
+
+    {
+      "text": "Bibliotekarz podaje dane książki",
+      "subscenario": []
+    },
+
+    {
+      "text": "IF: Bibliotekarz pragnie dodać egzemplarze książki",
+      "subscenario": [
+        {
+          "text": "Bibliotekarz wybiera opcję definiowania egzemplarzy",
+          "subscenario": []
+        },
+
+        {
+          "text": "System prezentuje zdefiniowane egzemplarze",
+          "subscenario": []
+        },
+
+        {
+          "text": "FOR EACH egzemplarz:",
+          "subscenario": [
+            {
+              "text": "Bibliotekarz wybiera opcję dodania egzemplarza",
+              "subscenario": []
+            },
+
+            {
+              "text": "System prosi o podanie danych egzemplarza",
+              "subscenario": []
+            },
+
+            {
+              "text": "Bibliotekarz podaje dane egzemplarza i zatwierdza",
+              "subscenario": []
+            },
+
+            {
+              "text": "System informuje o poprawnym dodaniu egzemplarza i prezentuje zaktualizowaną listę egzemplarzy",
+              "subscenario": []
+            }
+          ]
+        },
+      ]
+    },
+
+    {
+      "text": "Bibliotekarz zatwierdza dodanie książki",
+      "subscenario": []
+    },
+
+    {
+      "text": "System informuje o poprawnym dodaniu książki",
+      "subscenario": []
+    }
+  ]
+}
