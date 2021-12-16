@@ -6,6 +6,6 @@ public class ComplexStep implements Step {
 
     @Override
     public int accept(ScenarioVisitor visitor) {
-        return visitor.visit(this);
+        return visitor.visitComplexStep(this);
     }
 }

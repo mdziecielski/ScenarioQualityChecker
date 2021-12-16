@@ -1,13 +1,13 @@
 package pl.put.poznan.checker.logic;
 
-public class KeywordStepCountingVisitor implements ScenarioVisitor {
+public class KeywordStepCountingVisitor implements ScenarioVisitor{
     @Override
-    public int visit(SimpleStep simpleStep) {
+    public int visitSimpleStep(SimpleStep simpleStep) {
         return 0;
     }
 
     @Override
-    public int visit(ComplexStep complexStep) {
+    public int visitComplexStep(ComplexStep complexStep) {
         return 0;
     }
 }

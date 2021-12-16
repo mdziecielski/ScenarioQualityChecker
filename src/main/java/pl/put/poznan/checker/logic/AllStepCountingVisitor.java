@@ -1,18 +1,13 @@
 package pl.put.poznan.checker.logic;
 
-public class AllStepCountingVisitor implements ScenarioVisitor {
+public class AllStepCountingVisitor implements ScenarioVisitor{
     @Override
-    public int visit(SimpleStep simpleStep) {
-        return 1;
+    public int visitSimpleStep(SimpleStep simpleStep) {
+        return 0;
     }
 
     @Override
-    public int visit(ComplexStep complexStep) {
-        int stepCount = 0;
-        AllStepCountingVisitor scv = new AllStepCountingVisitor();
-        for (Step st : complexStep.subscenario) {
-            stepCount += st.accept(scv);
-        }
-        return stepCount + 1;
+    public int visitComplexStep(ComplexStep complexStep) {
+        return 0;
     }
 }
