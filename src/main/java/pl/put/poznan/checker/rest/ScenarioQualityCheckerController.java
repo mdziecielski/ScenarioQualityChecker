@@ -4,6 +4,7 @@ import org.apache.tomcat.util.json.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+import pl.put.poznan.checker.logic.ScenarioDataInput;
 import pl.put.poznan.checker.logic.ScenarioQualityChecker;
 import pl.put.poznan.checker.logic.TestClass;
 
@@ -11,7 +12,7 @@ import java.util.Arrays;
 
 
 @RestController
-@RequestMapping(value = {"/getScenarioName/{id}", "/getScenarioName"})
+@RequestMapping(value = {"/scenarioData/{id}", "/scenarioData"})
 
 public class ScenarioQualityCheckerController {
 
@@ -31,12 +32,11 @@ public class ScenarioQualityCheckerController {
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public TestClass post(@PathVariable(value = "id", required = false) String id,
-                          @RequestBody TestClass checks) {
-
+    public ScenarioDataInput post(@PathVariable(value = "id", required = false) String id,
+                                  @RequestBody ScenarioDataInput checks) {
         // log the parameters
         logger.debug(id);
-        logger.debug(checks.name);
+        logger.debug(checks.title);
 
         // perform the transformation, you should run your logic here, below is just a silly example
 //        ScenarioQualityChecker checker = new ScenarioQualityChecker(checks);
