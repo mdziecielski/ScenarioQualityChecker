@@ -5,7 +5,6 @@ public class SimpleStep implements Step {
 
     @Override
     public int accept(ScenarioVisitor visitor) {
-        return visitor.visitSimpleStep(this);
+        return visitor.visit(this);
     }
-
 }
