@@ -1,71 +1,65 @@
 {
   "title": "Dodanie książki",
-  "actors": ["Bibliotekarz"],
+  "actors": [
+    "Bibliotekarz"
+  ],
   "systemActor": "System",
   "steps": [
     {
-      "text": "Bibliotekarz wybiera opcje dodania nowej pozycji książkowej",
-      "subscenario": []
+      "className": "pl.put.poznan.checker.logic.SimpleStep",
+      "text": "Bibliotekarz wybiera opcje dodania nowej pozycji książkowej"
     },
-
     {
-      "text": "Wyświetla się formularz",
-      "subscenario": []
+      "className": "pl.put.poznan.checker.logic.SimpleStep",
+      "text": "Wyświetla się formularz"
     },
-
     {
-      "text": "Bibliotekarz podaje dane książki",
-      "subscenario": []
+      "className": "pl.put.poznan.checker.logic.SimpleStep",
+      "text": "Bibliotekarz podaje dane książki"
     },
-
     {
+      "className": "pl.put.poznan.checker.logic.ComplexStep",
       "text": "IF: Bibliotekarz pragnie dodać egzemplarze książki",
       "subscenario": [
         {
-          "text": "Bibliotekarz wybiera opcję definiowania egzemplarzy",
-          "subscenario": []
+          "className": "pl.put.poznan.checker.logic.SimpleStep",
+          "text": "Bibliotekarz wybiera opcję definiowania egzemplarzy"
         },
-
         {
-          "text": "System prezentuje zdefiniowane egzemplarze",
-          "subscenario": []
+          "className": "pl.put.poznan.checker.logic.SimpleStep",
+          "text": "System prezentuje zdefiniowane egzemplarze"
         },
-
         {
+          "className": "pl.put.poznan.checker.logic.ComplexStep",
           "text": "FOR EACH egzemplarz:",
           "subscenario": [
             {
-              "text": "Bibliotekarz wybiera opcję dodania egzemplarza",
-              "subscenario": []
+              "className": "pl.put.poznan.checker.logic.SimpleStep",
+              "text": "Bibliotekarz wybiera opcję dodania egzemplarza"
             },
-
             {
-              "text": "System prosi o podanie danych egzemplarza",
-              "subscenario": []
+              "className": "pl.put.poznan.checker.logic.SimpleStep",
+              "text": "System prosi o podanie danych egzemplarza"
             },
-
             {
-              "text": "Bibliotekarz podaje dane egzemplarza i zatwierdza",
-              "subscenario": []
+              "className": "pl.put.poznan.checker.logic.SimpleStep",
+              "text": "Bibliotekarz podaje dane egzemplarza i zatwierdza"
             },
-
             {
-              "text": "System informuje o poprawnym dodaniu egzemplarza i prezentuje zaktualizowaną listę egzemplarzy",
-              "subscenario": []
+              "className": "pl.put.poznan.checker.logic.SimpleStep",
+              "text": "System informuje o poprawnym dodaniu egzemplarza i prezentuje zaktualizowaną listę egzemplarzy"
             }
           ]
-        },
+        }
       ]
     },
-
     {
-      "text": "Bibliotekarz zatwierdza dodanie książki",
-      "subscenario": []
+      "className": "pl.put.poznan.checker.logic.SimpleStep",
+      "text": "Bibliotekarz zatwierdza dodanie książki"
     },
-
     {
-      "text": "System informuje o poprawnym dodaniu książki",
-      "subscenario": []
+      "className": "pl.put.poznan.checker.logic.SimpleStep",
+      "text": "System informuje o poprawnym dodaniu książki"
     }
   ]
 }
