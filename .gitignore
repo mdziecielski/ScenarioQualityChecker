@@ -29,7 +29,7 @@ Temporary Items
 .idea
 
 #Maven
-target/maven-status
+target
 
 #Java
 *.class
