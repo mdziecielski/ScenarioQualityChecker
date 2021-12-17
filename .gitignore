@@ -30,3 +30,6 @@ Temporary Items
 
 #Maven
 target/maven-status
+
+#Java
+*.class
