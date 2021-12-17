@@ -4,7 +4,7 @@ public class SimpleStep implements Step {
     public String text;
 
     @Override
-    public int accept(ScenarioVisitor visitor) {
-        return visitor.visit(this);
+    public void accept(ScenarioVisitor visitor) {
+        visitor.visit(this);
     }
 }

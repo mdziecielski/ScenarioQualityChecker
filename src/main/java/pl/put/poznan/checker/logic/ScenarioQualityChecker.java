@@ -11,7 +11,13 @@ public class ScenarioQualityChecker {
     private MainScenario scenario;
 
     public int countAllSteps() {
-        return scenario.accept(new AllStepCountingVisitor());
+        AllStepCountingVisitor visitor = new AllStepCountingVisitor();
+        scenario.accept(visitor);
+        return visitor.stepCount;
+    }
+
+    public void enumerateSteps() {
+        scenario.accept(new EnumerateStepsVisitor());
     }
 
     public MainScenario loadInputData(MainScenario scenarioData) {

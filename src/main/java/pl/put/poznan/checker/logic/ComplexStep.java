@@ -5,7 +5,7 @@ public class ComplexStep implements Step {
     public Step[] subscenario;
 
     @Override
-    public int accept(ScenarioVisitor visitor) {
-        return visitor.visit(this);
+    public void accept(ScenarioVisitor visitor) {
+        visitor.visit(this);
     }
 }
