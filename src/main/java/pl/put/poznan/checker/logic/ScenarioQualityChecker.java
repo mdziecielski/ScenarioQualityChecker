@@ -1,18 +1,21 @@
 package pl.put.poznan.checker.logic;
 
 /**
- * This is just an example to show that the logic should be outside the REST service.
+ * This is just an example to show that the logic should be outside the REST
+ * service.
  */
 public class ScenarioQualityChecker {
 
-    private final String[] checks;
+    // private final String[] checks;
 
-    public ScenarioQualityChecker(String[] checks){
-        this.checks = checks;
+    private MainScenario scenario;
+
+    public int countAllSteps() {
+        return scenario.accept(new AllStepCountingVisitor());
     }
 
-    public String checks(String text){
-        // of course, normally it would do something based on the transforms
-        return text.toUpperCase();
+    public MainScenario loadInputData(MainScenario scenarioData) {
+        this.scenario = scenarioData;
+        return this.scenario;
     }
 }
