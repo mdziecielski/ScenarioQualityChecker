@@ -15,11 +15,12 @@ import pl.put.poznan.checker.logic.MainScenario;
 // import ch.qos.logback.core.net.ObjectWriter;
 import pl.put.poznan.checker.logic.ScenarioQualityChecker;
 import pl.put.poznan.checker.logic.ScenarioVisitor;
+import pl.put.poznan.checker.logic.StepCountOutput;
 
 import java.util.Arrays;
 
 @RestController
-@RequestMapping(value = { "/allStepCount/{id}", "/allStepCount" })
+@RequestMapping(value = { "/allStepCount" })
 
 public class ScenarioAllStepCountController {
 
@@ -32,21 +33,8 @@ public class ScenarioAllStepCountController {
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public int get(@PathVariable(value = "id", required = false) String id,
+    public StepCountOutput get(@PathVariable(value = "id", required = false) String id,
             @RequestParam(value = "checks", defaultValue = "upper,escape") String[] checks) {
-
-        // log the parameters
-        // logger.debug(id);
-        // logger.debug(Arrays.toString(checks));
-
-        return scenarioQualityChecker.countAllSteps();
+        return new StepCountOutput(scenarioQualityChecker.countAllSteps());
     }
-
-    @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public MainScenario post(@PathVariable(value = "id", required = false) String id,
-            @RequestBody MainScenario scenarioData) throws JsonProcessingException {
-
-        return new MainScenario();
-    }
-
 }
