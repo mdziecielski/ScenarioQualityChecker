@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.put.poznan.checker.app.ScenarioQualityCheckerApplication;
 import pl.put.poznan.checker.logic.MainScenario;
 // import ch.qos.logback.core.net.ObjectWriter;
-import pl.put.poznan.checker.logic.ScenarioDataInput;
 import pl.put.poznan.checker.logic.ScenarioQualityChecker;
 import pl.put.poznan.checker.logic.ScenarioVisitor;
-import pl.put.poznan.checker.logic.TestClass;
 
 import java.util.Arrays;
 
