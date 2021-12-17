@@ -2,9 +2,9 @@ package pl.put.poznan.checker.logic;
 
 public class EnumeratedStep {
     public int stepNo;
-    public SimpleStep step;
+    public String step;
 
-    public EnumeratedStep(int n, SimpleStep s) {
+    public EnumeratedStep(int n, String s) {
         stepNo = n;
         step = s;
     }

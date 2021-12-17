@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import pl.put.poznan.checker.app.ScenarioQualityCheckerApplication;
+import pl.put.poznan.checker.logic.EnumerateStepsVisitor;
 import pl.put.poznan.checker.logic.MainScenario;
 // import ch.qos.logback.core.net.ObjectWriter;
 import pl.put.poznan.checker.logic.ScenarioQualityChecker;
@@ -35,8 +36,6 @@ public class ScenarioEnumerateStepsController {
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public String get(@PathVariable(value = "id", required = false) String id,
             @RequestParam(value = "checks", defaultValue = "upper,escape") String[] checks) {
-        String enumeratedScenario = "";
-
-        return enumeratedScenario;
+        return scenarioQualityChecker.enumerateSteps();
     }
 }

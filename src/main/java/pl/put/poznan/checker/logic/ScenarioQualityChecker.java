@@ -1,5 +1,7 @@
 package pl.put.poznan.checker.logic;
 
+import java.util.Collection;
+
 /**
  * This is just an example to show that the logic should be outside the REST
  * service.
@@ -16,8 +18,14 @@ public class ScenarioQualityChecker {
         return visitor.stepCount;
     }
 
-    public void enumerateSteps() {
-        scenario.accept(new EnumerateStepsVisitor());
+    public String enumerateSteps() {
+        EnumerateStepsVisitor visitor = new EnumerateStepsVisitor();
+        scenario.accept(visitor);
+        String enumeratedScenarioString = "";
+        for (var estep : visitor.enumeratedSteps) {
+            enumeratedScenarioString += Integer.toString(estep.stepNo) + ". " + estep.step + '\n';
+        }
+        return enumeratedScenarioString;
     }
 
     public MainScenario loadInputData(MainScenario scenarioData) {
