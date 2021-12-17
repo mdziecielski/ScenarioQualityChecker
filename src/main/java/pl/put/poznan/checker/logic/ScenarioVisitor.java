@@ -4,4 +4,6 @@ public interface ScenarioVisitor {
     int visit(SimpleStep simpleStep);
 
     int visit(ComplexStep complexStep);
+
+    int visit(MainScenario mainScenario);
 }

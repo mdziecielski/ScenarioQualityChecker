@@ -10,4 +10,8 @@ public class MainScenario {
     public String systemActor;
 
     public Step[] steps;
+
+    public int accept(ScenarioVisitor visitor) {
+        return visitor.visit(this);
+    }
 }

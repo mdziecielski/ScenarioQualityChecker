@@ -11,13 +11,7 @@ public class ScenarioQualityChecker {
     private MainScenario scenario;
 
     public int countAllSteps() {
-        AllStepCountingVisitor visitor = new AllStepCountingVisitor();
-        int stepCount = 0;
-        for (Step st : scenario.steps) {
-            stepCount += st.accept(visitor);
-        }
-
-        return stepCount;
+        return scenario.accept(new AllStepCountingVisitor());
     }
 
     public MainScenario loadInputData(MainScenario scenarioData) {

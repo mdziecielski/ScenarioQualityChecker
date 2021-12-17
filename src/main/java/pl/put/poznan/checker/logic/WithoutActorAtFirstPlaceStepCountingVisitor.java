@@ -10,4 +10,9 @@ public class WithoutActorAtFirstPlaceStepCountingVisitor implements ScenarioVisi
     public int visit(ComplexStep complexStep) {
         return 0;
     }
+
+    @Override
+    public int visit(MainScenario mainScenario) {
+        return 0;
+    }
 }
