@@ -20,7 +20,7 @@ import pl.put.poznan.checker.logic.StepCountOutput;
 import java.util.Arrays;
 
 @RestController
-@RequestMapping(value = { "/allStepCount" })
+@RequestMapping(value = { "/keywordStepCount" })
 
 public class ScenarioKeywordStepCountController {
 
