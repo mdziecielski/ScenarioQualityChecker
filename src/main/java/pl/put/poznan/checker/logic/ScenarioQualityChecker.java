@@ -18,6 +18,12 @@ public class ScenarioQualityChecker {
         return visitor.stepCount;
     }
 
+    public int countKeywordSteps(){
+        KeywordStepCountingVisitor visitor = new KeywordStepCountingVisitor();
+        scenario.accept(visitor);
+        return visitor.stepCount;
+    }
+
     public String enumerateSteps() {
         EnumerateStepsVisitor visitor = new EnumerateStepsVisitor();
         scenario.accept(visitor);
