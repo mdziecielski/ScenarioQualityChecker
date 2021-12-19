@@ -13,23 +13,24 @@ public class EnumerateStepsVisitor implements ScenarioVisitor {
     @Override
     public void visit(SimpleStep simpleStep) {
         String stepCount = "";
-        currentEnum.set(currentEnum.size() - 1, currentEnum.get(currentEnum.size() - 1) + 1);
 
         for (var x : currentEnum) {
             stepCount += Integer.toString(x) + ".";
         }
+        currentEnum.set(currentEnum.size() - 1, currentEnum.get(currentEnum.size() - 1) + 1);
 
         enumeratedSteps.add(new EnumeratedStep(stepCount, simpleStep.text));
     }
 
     @Override
     public void visit(ComplexStep complexStep) {
-        currentEnum.add(1);
         String stepCount = "";
 
         for (var x : currentEnum) {
             stepCount += Integer.toString(x) + ".";
         }
+
+        currentEnum.add(1);
 
         enumeratedSteps.add(new EnumeratedStep(stepCount, complexStep.text));
 
@@ -41,7 +42,7 @@ public class EnumerateStepsVisitor implements ScenarioVisitor {
 
     @Override
     public void visit(MainScenario mainScenario) {
-        currentEnum.add(0);
+        currentEnum.add(1);
         for (var st : mainScenario.steps) {
             st.accept(this);
         }
