@@ -18,7 +18,7 @@ public class ScenarioQualityChecker {
         return visitor.stepCount;
     }
 
-    public int countKeywordSteps(){
+    public int countKeywordSteps() {
         KeywordStepCountingVisitor visitor = new KeywordStepCountingVisitor();
         scenario.accept(visitor);
         return visitor.stepCount;
@@ -29,7 +29,7 @@ public class ScenarioQualityChecker {
         scenario.accept(visitor);
         String enumeratedScenarioString = "";
         for (var estep : visitor.enumeratedSteps) {
-            enumeratedScenarioString += Integer.toString(estep.stepNo) + ". " + estep.step + '\n';
+            enumeratedScenarioString += estep.stepNo + estep.step + '\n';
         }
         return enumeratedScenarioString;
     }
