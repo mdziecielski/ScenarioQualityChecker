@@ -14,6 +14,10 @@ public class ScenarioQualityChecker {
         return scenario.accept(new AllStepCountingVisitor());
     }
 
+    public int countWithoutActorSteps() {
+        return scenario.accept(new WithoutActorAtFirstPlaceStepCountingVisitor());
+    }
+
     public MainScenario loadInputData(MainScenario scenarioData) {
         this.scenario = scenarioData;
         return this.scenario;
