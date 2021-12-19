@@ -1,9 +1,9 @@
 package pl.put.poznan.checker.logic;
 
 public interface ScenarioVisitor {
-    int visit(SimpleStep simpleStep);
+    void visit(SimpleStep simpleStep);
 
-    int visit(ComplexStep complexStep);
+    void visit(ComplexStep complexStep);
 
-    int visit(MainScenario mainScenario);
+    void visit(MainScenario mainScenario);
 }

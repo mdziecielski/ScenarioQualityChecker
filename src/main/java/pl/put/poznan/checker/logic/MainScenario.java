@@ -11,7 +11,7 @@ public class MainScenario {
 
     public Step[] steps;
 
-    public int accept(ScenarioVisitor visitor) {
-        return visitor.visit(this);
+    public void accept(ScenarioVisitor visitor) {
+        visitor.visit(this);
     }
 }
