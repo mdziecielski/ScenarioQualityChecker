@@ -1,5 +1,6 @@
 package pl.put.poznan.checker.logic;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -22,6 +23,12 @@ public class ScenarioQualityChecker {
         KeywordStepCountingVisitor visitor = new KeywordStepCountingVisitor();
         scenario.accept(visitor);
         return visitor.stepCount;
+    }
+
+    public ArrayList<String> countNoActorSteps() {
+        WithoutActorAtFirstPlaceStepCountingVisitor visitor = new WithoutActorAtFirstPlaceStepCountingVisitor();
+        scenario.accept(visitor);
+        return visitor.problematic;
     }
 
     public String enumerateSteps() {
