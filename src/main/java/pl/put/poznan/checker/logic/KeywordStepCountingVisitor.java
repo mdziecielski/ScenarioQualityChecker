@@ -4,15 +4,11 @@ public class KeywordStepCountingVisitor implements ScenarioVisitor {
     private String[] keywords = {"ELSE", "IF", "FOR EACH"};
     public int stepCount = 0;
 
+
     public boolean  checkIfBeginWithKeyword(String text){
         String[] splitStep = text.split("[ :]");
-
         for (String keyword : this.keywords){
-            if (splitStep[0].equals(keyword)){
-                return true;
-            }
-
-            if ((splitStep[0] + " " + splitStep[1]).equals(keyword)){
+            if (text.startsWith(keyword)){
                 return true;
             }
         }
