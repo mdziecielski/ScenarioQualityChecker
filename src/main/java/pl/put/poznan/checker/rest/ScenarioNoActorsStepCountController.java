@@ -11,11 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import pl.put.poznan.checker.app.ScenarioQualityCheckerApplication;
-import pl.put.poznan.checker.logic.MainScenario;
+import pl.put.poznan.checker.logic.*;
 // import ch.qos.logback.core.net.ObjectWriter;
-import pl.put.poznan.checker.logic.ScenarioQualityChecker;
-import pl.put.poznan.checker.logic.ScenarioVisitor;
-import pl.put.poznan.checker.logic.StepCountOutput;
 
 import java.util.Arrays;
 
@@ -33,8 +30,8 @@ public class ScenarioNoActorsStepCountController {
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public StepCountOutput get(@PathVariable(value = "id", required = false) String id,
+    public WithoutActorsStepOutput get(@PathVariable(value = "id", required = false) String id,
                                @RequestParam(value = "checks", defaultValue = "upper,escape") String[] checks) {
-        return new StepCountOutput(scenarioQualityChecker.countNoActorSteps());
+        return new WithoutActorsStepOutput(scenarioQualityChecker.countNoActorSteps());
     }
 }

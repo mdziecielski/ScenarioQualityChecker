@@ -14,7 +14,7 @@ public class WithoutActorAtFirstPlaceStepCountingVisitor implements ScenarioVisi
     public void visit(SimpleStep simpleStep) {
         String[] Words = simpleStep.text.split(" ");
         String MaybeActor = Words[0];
-        if (!Arrays.asList(actors).contains(MaybeActor) && !KeyWord.checkIfBeginWithKeyword(simpleStep.text)){
+        if (!actors.contains(MaybeActor) && !KeyWord.checkIfBeginWithKeyword(simpleStep.text)){
             problematic.add(simpleStep.text);
         }
     }
@@ -26,7 +26,7 @@ public class WithoutActorAtFirstPlaceStepCountingVisitor implements ScenarioVisi
         for (Step st : complexStep.subscenario) {
             st.accept(this);
         }
-        if (!Arrays.asList(actors).contains(MaybeActor) && KeyWord.checkIfBeginWithKeyword(complexStep.text)){
+        if (!actors.contains(MaybeActor) && !KeyWord.checkIfBeginWithKeyword(complexStep.text)){
             problematic.add(complexStep.text);
         }
     }
