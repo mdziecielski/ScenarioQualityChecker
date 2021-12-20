@@ -24,6 +24,12 @@ public class ScenarioQualityChecker {
         return visitor.stepCount;
     }
 
+    public int countNoActorSteps() {
+        WithoutActorAtFirstPlaceStepCountingVisitor visitor = new WithoutActorAtFirstPlaceStepCountingVisitor();
+        scenario.accept(visitor);
+        return visitor.stepCount;
+    }
+
     public String enumerateSteps() {
         EnumerateStepsVisitor visitor = new EnumerateStepsVisitor();
         scenario.accept(visitor);
