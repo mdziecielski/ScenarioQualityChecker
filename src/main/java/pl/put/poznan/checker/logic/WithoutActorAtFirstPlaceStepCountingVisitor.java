@@ -1,16 +1,21 @@
 package pl.put.poznan.checker.logic;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class WithoutActorAtFirstPlaceStepCountingVisitor implements ScenarioVisitor {
     int stepCount = 0;
-    String actors[];
+    KeywordStepCountingVisitor KeyWord = new KeywordStepCountingVisitor();
+    ArrayList<String> actors = new ArrayList<String>();
+    ArrayList<String> problematic = new ArrayList<String>();
 
     @Override
     public void visit(SimpleStep simpleStep) {
         String[] Words = simpleStep.text.split(" ");
         String MaybeActor = Words[0];
-        if (!Arrays.asList(actors).contains(MaybeActor)){
-            stepCount += 1;
+        if (!Arrays.asList(actors).contains(MaybeActor) && !KeyWord.checkIfBeginWithKeyword(simpleStep.text)){
+            problematic.add(simpleStep.text);
         }
     }
 
@@ -21,14 +26,16 @@ public class WithoutActorAtFirstPlaceStepCountingVisitor implements ScenarioVisi
         for (Step st : complexStep.subscenario) {
             st.accept(this);
         }
-        if (!Arrays.asList(actors).contains(MaybeActor)){
-            stepCount += 1;
+        if (!Arrays.asList(actors).contains(MaybeActor) && KeyWord.checkIfBeginWithKeyword(complexStep.text)){
+            problematic.add(complexStep.text);
         }
     }
 
     @Override
     public void visit(MainScenario mainScenario) {
-        actors = mainScenario.actors;
+        for (String s: mainScenario.actors)
+            actors.add(s);
+        actors.add(mainScenario.systemActor);
         for (Step step : mainScenario.steps) {
             step.accept(this);
         }

@@ -4,7 +4,7 @@ public class KeywordStepCountingVisitor implements ScenarioVisitor {
     private String[] keywords = {"ELSE", "IF", "FOR EACH"};
     public int stepCount = 0;
 
-    private boolean  checkIfBeginWithKeyword(String text){
+    public boolean  checkIfBeginWithKeyword(String text){
         String[] splitStep = text.split("[ :]");
 
         for (String keyword : this.keywords){
