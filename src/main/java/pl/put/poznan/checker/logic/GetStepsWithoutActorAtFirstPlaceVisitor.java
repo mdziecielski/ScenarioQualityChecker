@@ -1,11 +1,18 @@
 package pl.put.poznan.checker.logic;
 import java.util.ArrayList;
 
+/**
+ * Creates list of steps without actor at first place
+ */
 public class GetStepsWithoutActorAtFirstPlaceVisitor implements ScenarioVisitor {
     KeywordStepCountingVisitor keyWord = new KeywordStepCountingVisitor();
     ArrayList<String> actors = new ArrayList<String>();
     ArrayList<String> noActorSteps = new ArrayList<String>();
 
+    /**
+     * Adds simpleStep to the list of steps if actor is not present at the first place
+     * @param simpleStep step without subscenario
+     */
     @Override
     public void visit(SimpleStep simpleStep) {
         String[] Words = simpleStep.text.split(" ");
@@ -15,6 +22,11 @@ public class GetStepsWithoutActorAtFirstPlaceVisitor implements ScenarioVisitor 
         }
     }
 
+    /**
+     * Adds complexStep to the list of steps if actor is not present at the first place
+     * and calls visit method for subscenario
+     * @param complexStep step with subscenario
+     */
     @Override
     public void visit(ComplexStep complexStep) {
         String[] Words = complexStep.text.split(" ");
@@ -27,6 +39,10 @@ public class GetStepsWithoutActorAtFirstPlaceVisitor implements ScenarioVisitor 
         }
     }
 
+    /**
+     * Create list of actors and calls visit method for every step in mainScenario
+     * @param mainScenario class instance representing scenario
+     */
     @Override
     public void visit(MainScenario mainScenario) {
         for (String s: mainScenario.actors)
