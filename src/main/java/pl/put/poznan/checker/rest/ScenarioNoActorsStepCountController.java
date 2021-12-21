@@ -31,7 +31,8 @@ public class ScenarioNoActorsStepCountController {
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public WithoutActorsStepOutput get(@PathVariable(value = "id", required = false) String id,
-                               @RequestParam(value = "checks", defaultValue = "upper,escape") String[] checks) {
+            @RequestParam(value = "checks", defaultValue = "upper,escape") String[] checks) {
+        logger.info("Received a request to /noActorStepCount");
         return new WithoutActorsStepOutput(scenarioQualityChecker.countNoActorSteps());
     }
 }

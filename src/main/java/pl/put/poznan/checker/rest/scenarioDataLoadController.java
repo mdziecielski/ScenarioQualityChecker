@@ -19,7 +19,7 @@ import pl.put.poznan.checker.logic.ScenarioVisitor;
 import java.util.Arrays;
 
 @RestController
-@RequestMapping(value = { "/scenarioDataLoad/{id}", "/scenarioDataLoad" })
+@RequestMapping(value = { "/scenarioDataLoad" })
 
 public class scenarioDataLoadController {
 
@@ -31,20 +31,11 @@ public class scenarioDataLoadController {
         this.scenarioQualityChecker = scenarioQualityChecker;
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public String get(@PathVariable(value = "id", required = false) String id,
-            @RequestParam(value = "checks", defaultValue = "upper,escape") String[] checks) {
-
-        // log the parameters
-        // logger.debug(id);
-        // logger.debug(Arrays.toString(checks));
-        return "";
-    }
-
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public MainScenario post(@PathVariable(value = "id", required = false) String id,
             @RequestBody MainScenario scenarioData) throws JsonProcessingException {
 
+        logger.info("Received a request to /scenarioDataLoad");
         return scenarioQualityChecker.loadInputData(scenarioData);
     }
 

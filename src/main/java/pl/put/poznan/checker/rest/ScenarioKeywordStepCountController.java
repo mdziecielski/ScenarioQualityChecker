@@ -34,7 +34,8 @@ public class ScenarioKeywordStepCountController {
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public StepCountOutput get(@PathVariable(value = "id", required = false) String id,
-                               @RequestParam(value = "checks", defaultValue = "upper,escape") String[] checks) {
+            @RequestParam(value = "checks", defaultValue = "upper,escape") String[] checks) {
+        logger.info("Received a request to /keywordStepCount");
         return new StepCountOutput(scenarioQualityChecker.countKeywordSteps());
     }
 }
