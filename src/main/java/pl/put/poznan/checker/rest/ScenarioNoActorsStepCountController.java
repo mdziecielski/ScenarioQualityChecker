@@ -8,6 +8,8 @@ import org.apache.tomcat.util.json.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import pl.put.poznan.checker.app.ScenarioQualityCheckerApplication;
@@ -30,9 +32,15 @@ public class ScenarioNoActorsStepCountController {
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public WithoutActorsStepOutput get(@PathVariable(value = "id", required = false) String id,
+    public ResponseEntity get(@PathVariable(value = "id", required = false) String id,
             @RequestParam(value = "checks", defaultValue = "upper,escape") String[] checks) {
         logger.info("Received a request to /noActorStepCount");
-        return new WithoutActorsStepOutput(scenarioQualityChecker.countNoActorSteps());
+        try {
+            return new ResponseEntity<>(new WithoutActorsStepOutput(scenarioQualityChecker.countNoActorSteps()),
+                    HttpStatus.OK);
+        } catch (NullPointerException e) {
+            logger.error("No scenario was loaded");
+            return new ResponseEntity<HttpStatus>(HttpStatus.NOT_ACCEPTABLE, HttpStatus.NOT_ACCEPTABLE);
+        }
     }
 }

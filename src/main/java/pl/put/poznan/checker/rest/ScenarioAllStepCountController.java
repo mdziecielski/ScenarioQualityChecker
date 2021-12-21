@@ -4,10 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.util.JSONPObject;
+
+import org.apache.http.impl.client.AbstractResponseHandler;
 import org.apache.tomcat.util.json.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import pl.put.poznan.checker.app.ScenarioQualityCheckerApplication;
@@ -33,9 +37,14 @@ public class ScenarioAllStepCountController {
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public StepCountOutput get(@PathVariable(value = "id", required = false) String id,
+    public ResponseEntity get(@PathVariable(value = "id", required = false) String id,
             @RequestParam(value = "checks", defaultValue = "upper,escape") String[] checks) {
         logger.info("Received a request to /allStepCount");
-        return new StepCountOutput(scenarioQualityChecker.countAllSteps());
+        try {
+            return new ResponseEntity<>(new StepCountOutput(scenarioQualityChecker.countAllSteps()), HttpStatus.OK);
+        } catch (NullPointerException e) {
+            logger.error("No scenario was loaded");
+            return new ResponseEntity<HttpStatus>(HttpStatus.NOT_ACCEPTABLE, HttpStatus.NOT_ACCEPTABLE);
+        }
     }
 }
