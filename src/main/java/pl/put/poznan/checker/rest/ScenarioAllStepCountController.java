@@ -35,6 +35,7 @@ public class ScenarioAllStepCountController {
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public StepCountOutput get(@PathVariable(value = "id", required = false) String id,
             @RequestParam(value = "checks", defaultValue = "upper,escape") String[] checks) {
+        logger.info("Received a request to /allStepCount");
         return new StepCountOutput(scenarioQualityChecker.countAllSteps());
     }
 }
