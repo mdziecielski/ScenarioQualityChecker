@@ -27,7 +27,7 @@ public class ScenarioQualityChecker {
     public ArrayList<String> countNoActorSteps() {
         GetStepsWithoutActorAtFirstPlaceVisitor visitor = new GetStepsWithoutActorAtFirstPlaceVisitor();
         scenario.accept(visitor);
-        return visitor.problematic;
+        return visitor.noActorSteps;
     }
 
     public String enumerateSteps() {
