@@ -1,7 +1,6 @@
 package pl.put.poznan.checker.logic;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * This is just an example to show that the logic should be outside the REST
@@ -26,7 +25,7 @@ public class ScenarioQualityChecker {
     }
 
     public ArrayList<String> countNoActorSteps() {
-        WithoutActorAtFirstPlaceStepCountingVisitor visitor = new WithoutActorAtFirstPlaceStepCountingVisitor();
+        GetStepsWithoutActorAtFirstPlaceVisitor visitor = new GetStepsWithoutActorAtFirstPlaceVisitor();
         scenario.accept(visitor);
         return visitor.problematic;
     }

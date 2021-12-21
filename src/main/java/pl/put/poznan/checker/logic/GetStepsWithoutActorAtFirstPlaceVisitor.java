@@ -1,10 +1,7 @@
 package pl.put.poznan.checker.logic;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
 
-public class WithoutActorAtFirstPlaceStepCountingVisitor implements ScenarioVisitor {
+public class GetStepsWithoutActorAtFirstPlaceVisitor implements ScenarioVisitor {
     int stepCount = 0;
     KeywordStepCountingVisitor KeyWord = new KeywordStepCountingVisitor();
     ArrayList<String> actors = new ArrayList<String>();
