@@ -40,6 +40,12 @@ public class ScenarioQualityChecker {
         return enumeratedScenarioString;
     }
 
+    public int countDepth() {
+        DepthCountingVisitor visitor = new DepthCountingVisitor();
+        scenario.accept(visitor);
+        return visitor.depthCount;
+    }
+
     public MainScenario loadInputData(MainScenario scenarioData) {
         this.scenario = scenarioData;
         return this.scenario;
