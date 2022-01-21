@@ -1,6 +1,7 @@
 package pl.put.poznan.checker.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * This is just an example to show that the logic should be outside the REST
@@ -28,6 +29,12 @@ public class ScenarioQualityChecker {
         GetStepsWithoutActorAtFirstPlaceVisitor visitor = new GetStepsWithoutActorAtFirstPlaceVisitor();
         scenario.accept(visitor);
         return visitor.noActorSteps;
+    }
+
+    public HashMap<String,Integer> calculateActorsOccurences() {
+        ActorsOccurencesCounterVisitor visitor = new ActorsOccurencesCounterVisitor();
+        scenario.accept(visitor);
+        return visitor.actorsOccurences;
     }
 
     public String enumerateSteps() {
