@@ -46,6 +46,16 @@ public class ScenarioQualityChecker {
         return visitor.depthCount;
     }
 
+    public String createCustomDepthScenario(int depth) {
+        CustomDepthVisitor visitor = new CustomDepthVisitor(depth);
+        scenario.accept(visitor);
+        String customDepthScenarioString = "";
+        for (CustomStep step: visitor.customSteps) {
+            customDepthScenarioString += step.text + '\n';
+        }
+        return customDepthScenarioString;
+    }
+
     public MainScenario loadInputData(MainScenario scenarioData) {
         this.scenario = scenarioData;
         return this.scenario;
