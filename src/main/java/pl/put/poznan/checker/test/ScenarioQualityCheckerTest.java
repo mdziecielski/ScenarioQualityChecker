@@ -1,0 +1,124 @@
+package pl.put.poznan.checker.test;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.mockito.Mockito.*;
+
+import pl.put.poznan.checker.logic.*;
+
+import java.util.ArrayList;
+
+class ScenarioQualityCheckerTest {
+    MainScenario mockScenario;
+    ScenarioQualityChecker scenarioQualityChecker;
+    ArrayList<Step> steps;
+
+    @BeforeEach
+    void setUp() {
+        scenarioQualityChecker = new ScenarioQualityChecker();
+        mockScenario = mock(MainScenario.class);
+        steps = new ArrayList<Step>();
+
+        when(mockScenario.getSteps()).thenReturn(steps);
+        doCallRealMethod().when(mockScenario).accept(any(ScenarioVisitor.class));
+        scenarioQualityChecker.loadInputData(mockScenario);
+    }
+
+    @Test
+    void testCountDepthWhileEmptyScenario() {
+        assertEquals(1, this.scenarioQualityChecker.countDepth());
+    }
+
+    @Test
+    void testCountDepthWhileOneLevelScenario() {
+        steps.add(new SimpleStep());
+        steps.add(new SimpleStep());
+        steps.add(new SimpleStep());
+
+        assertEquals(1, this.scenarioQualityChecker.countDepth());
+    }
+
+    @Test
+    void testCountDepthWhileTwoLevelScenario() {
+        ArrayList<Step> subscenario = new ArrayList<Step>();
+
+        ComplexStep complexStep = new ComplexStep();
+        complexStep.setSubscenario(subscenario);
+
+        steps.add(complexStep);
+        steps.add(new SimpleStep());
+        steps.add(new SimpleStep());
+
+        assertEquals(2, scenarioQualityChecker.countDepth());
+    }
+
+    @Test
+    void testCountDepthWhileThreeLevelScenario() {
+        ArrayList<Step> subscenario = new ArrayList<Step>();
+        ArrayList<Step> subsubscenario = new ArrayList<Step>();
+
+        ComplexStep subComplexStep = new ComplexStep();
+        subscenario.add(subComplexStep);
+        subComplexStep.setSubscenario(subsubscenario);
+
+        ComplexStep complexStep = new ComplexStep();
+        complexStep.setSubscenario(subscenario);
+
+        steps.add(complexStep);
+        steps.add(new SimpleStep());
+        steps.add(new SimpleStep());
+
+        assertEquals(3, scenarioQualityChecker.countDepth());
+    }
+
+    @Test
+    void testCreateCustomDepthScenarioWithOneLevelScenario() {
+        SimpleStep step1 = new SimpleStep();
+        SimpleStep step2 = new SimpleStep();
+        SimpleStep step3 = new SimpleStep();
+
+        step1.setText("Step 1");
+        step2.setText("Step 2");
+        step3.setText("Step 3");
+
+        steps.add(step1);
+        steps.add(step2);
+        steps.add(step3);
+
+        String expectedResult = "Step 1\nStep 2\nStep 3\n";
+
+        assertEquals(expectedResult, scenarioQualityChecker.createCustomDepthScenario(1));
+        assertEquals(expectedResult, scenarioQualityChecker.createCustomDepthScenario(2));
+        assertEquals(expectedResult, scenarioQualityChecker.createCustomDepthScenario(3));
+    }
+
+    @Test
+    void testCreateCustomDepthScenarioWithTwoLevelScenario() {
+        SimpleStep step1 = new SimpleStep();
+        ComplexStep step2 = new ComplexStep();
+        SimpleStep step21 = new SimpleStep();
+        SimpleStep step3 = new SimpleStep();
+
+        step1.setText("Step 1");
+        step2.setText("Step 2");
+        step21.setText("Substep 21");
+        step3.setText("Step 3");
+
+        ArrayList<Step> subscenario = new ArrayList<Step>();
+        subscenario.add(step21);
+        step2.setSubscenario(subscenario);
+
+        steps.add(step1);
+        steps.add(step2);
+        steps.add(step3);
+
+        String expectedResultFirstLevel = "Step 1\nStep 2\nStep 3\n";
+        String expectedResultTwoLevels = "Step 1\nStep 2\nSubstep 21\nStep 3\n";
+
+        assertEquals(expectedResultFirstLevel, scenarioQualityChecker.createCustomDepthScenario(1));
+        assertEquals(expectedResultTwoLevels, scenarioQualityChecker.createCustomDepthScenario(2));
+        assertEquals(expectedResultTwoLevels, scenarioQualityChecker.createCustomDepthScenario(3));
+    }
+}
