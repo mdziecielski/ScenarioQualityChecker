@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
+import org.mockito.internal.matchers.Null;
 import pl.put.poznan.checker.logic.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 class ScenarioQualityCheckerTest {
     MainScenario mockScenario;
@@ -120,5 +122,77 @@ class ScenarioQualityCheckerTest {
         assertEquals(expectedResultFirstLevel, scenarioQualityChecker.createCustomDepthScenario(1));
         assertEquals(expectedResultTwoLevels, scenarioQualityChecker.createCustomDepthScenario(2));
         assertEquals(expectedResultTwoLevels, scenarioQualityChecker.createCustomDepthScenario(3));
+    }
+
+    @Test
+    void testAllStepCounterWithOneLevelScenario() {
+        int stepcount = 5;
+        for(int i = 0; i < stepcount; ++i) {
+            steps.add(new SimpleStep());
+        }
+
+        assertEquals(stepcount, scenarioQualityChecker.countAllSteps());
+    }
+
+    Step generateCustomDepthStep(int depth) {
+        if(depth == 1) {
+            SimpleStep s = new SimpleStep();
+            s.setText("test");
+            return s;
+        }
+        ComplexStep step = new ComplexStep();
+        step.setText("testDeep");
+        List<Step> subscenarios = new ArrayList<Step>();
+        subscenarios.add(generateCustomDepthStep(depth - 1));
+        step.setSubscenario(subscenarios);
+        return step;
+    }
+
+    @Test
+    void testAllStepCounterWithMultiLevelScenario() {
+        int stepcount = 2137;
+        int depth = 2115;
+        for(int i = 0; i < stepcount; ++i) {
+            ComplexStep cstep = new ComplexStep();
+            List<Step> subscenarios = new ArrayList<Step>();
+            subscenarios.add(generateCustomDepthStep(depth));
+            cstep.setSubscenario(subscenarios);
+            steps.add(cstep);
+        }
+
+        assertEquals(stepcount*(depth+1), scenarioQualityChecker.countAllSteps());
+    }
+
+    @Test
+    void testAllStepCounterWithEmptyScenario() {
+        assertEquals(0, scenarioQualityChecker.countAllSteps());
+    }
+
+    @Test
+    void testAllStepCounterWithComplexStepWithoutSimpleStepsThrowsException() {
+        ComplexStep cstep = new ComplexStep();
+        steps.add(cstep);
+        assertThrows(NullPointerException.class, () -> {
+           scenarioQualityChecker.countAllSteps();
+        });
+    }
+
+    @Test
+    void testEnumerateStepsWithThreeLevelDepth() {
+        int stepcount = 1;
+        int depth = 3;
+        for(int i = 0; i < stepcount; ++i) {
+            ComplexStep cstep = new ComplexStep();
+            cstep.setText("testDeep");
+            List<Step> subscenarios = new ArrayList<Step>();
+            subscenarios.add(generateCustomDepthStep(depth));
+            cstep.setSubscenario(subscenarios);
+            steps.add(cstep);
+        }
+
+        assertEquals("1.testDeep\n" +
+                "1.1.testDeep\n" +
+                "1.1.1.testDeep\n" +
+                "1.1.1.1.test\n", scenarioQualityChecker.enumerateSteps());
     }
 }

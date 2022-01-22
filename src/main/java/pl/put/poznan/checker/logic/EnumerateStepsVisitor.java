@@ -58,7 +58,7 @@ public class EnumerateStepsVisitor implements ScenarioVisitor {
     @Override
     public void visit(MainScenario mainScenario) {
         currentEnum.add(1);
-        for (var st : mainScenario.steps) {
+        for (var st : mainScenario.getSteps()) {
             st.accept(this);
         }
         currentEnum.remove(currentEnum.size() - 1);

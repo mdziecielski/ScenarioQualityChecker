@@ -31,7 +31,7 @@ public class ActorsOccurencesCounterVisitor implements ScenarioVisitor{
         for (String s: mainScenario.actors)
             actorsOccurences.put(s,0);
         actorsOccurences.put(mainScenario.systemActor,0);
-        for (Step step : mainScenario.steps) {
+        for (Step step : mainScenario.getSteps()) {
             step.accept(this);
         }
     }
