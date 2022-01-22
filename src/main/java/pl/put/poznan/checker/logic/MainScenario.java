@@ -1,5 +1,7 @@
 package pl.put.poznan.checker.logic;
 
+import java.util.List;
+
 /**
  * Scenario
  */
@@ -13,5 +15,9 @@ public class MainScenario {
 
     public void accept(ScenarioVisitor visitor) {
         visitor.visit(this);
+    }
+
+    public List<Step> getSteps() {
+        return List.of(this.steps);
     }
 }
