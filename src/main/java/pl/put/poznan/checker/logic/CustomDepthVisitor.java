@@ -32,7 +32,7 @@ public class CustomDepthVisitor implements ScenarioVisitor {
 
     @Override
     public void visit(MainScenario mainScenario) {
-        for (Step step: mainScenario.steps) {
+        for (Step step: mainScenario.getSteps()) {
             step.accept(this);
         }
     }
