@@ -26,6 +26,7 @@ class ScenarioQualityCheckerTest {
 
         when(mockScenario.getSteps()).thenReturn(steps);
         doCallRealMethod().when(mockScenario).accept(any(ScenarioVisitor.class));
+        mockScenario.systemActor="System";
         scenarioQualityChecker.loadInputData(mockScenario);
     }
 
@@ -204,31 +205,33 @@ class ScenarioQualityCheckerTest {
 
     @Test
     void testStepsWithoutActorAtFirstWithSimpleSteps(){
-        SimpleStep base = new SimpleStep();
-        base.setText(mockScenario.systemActor);
-        steps.add(base);
-        steps.add(base);
-        steps.add(base);
-        ArrayList<String> result = new ArrayList<String>();
-        result = scenarioQualityChecker.countNoActorSteps();
-        assertEquals(3,result.size());
+        SimpleStep noActor = new SimpleStep();
+        SimpleStep actor = new SimpleStep();
+        noActor.setText("Some text to check");
+        actor.setText(mockScenario.systemActor + " doing something");
+        steps.add(noActor);
+        steps.add(actor);
+        steps.add(actor);
+        assertEquals(1,scenarioQualityChecker.countNoActorSteps().size());
     }
 
     @Test
     void testStepsWithoutActorAtFirstWithComplexSteps(){
-        ComplexStep cstep = new ComplexStep();
-        SimpleStep step = new SimpleStep();
-        step.setText("");
-        cstep.setText(mockScenario.systemActor);
         List<Step> subscenarios = new ArrayList<Step>();
-        subscenarios.add(step);
-        subscenarios.add(step);
-        step.setText(mockScenario.systemActor);
-        subscenarios.add(step);
-        subscenarios.add(step);
-        subscenarios.add(step);
+        ComplexStep cstep = new ComplexStep();
+        SimpleStep actorStep = new SimpleStep();
+        SimpleStep noActorStep = new SimpleStep();
+        actorStep.setText(mockScenario.systemActor + " doing something");
+        noActorStep.setText("Some text to check");
+        cstep.setText(mockScenario.systemActor + " doing something else");
+        subscenarios.add(actorStep);
+        subscenarios.add(actorStep);
+        subscenarios.add(noActorStep);
+        subscenarios.add(noActorStep);
+        subscenarios.add(noActorStep);
+        cstep.setSubscenario(subscenarios);
         steps.add(cstep);
-        steps.add(step);
-        assertEquals(5,scenarioQualityChecker.countNoActorSteps().size());
+        steps.add(actorStep);
+        assertEquals(3,scenarioQualityChecker.countNoActorSteps().size());
     }
 }

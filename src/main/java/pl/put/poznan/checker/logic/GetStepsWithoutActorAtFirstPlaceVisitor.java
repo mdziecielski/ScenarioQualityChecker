@@ -45,10 +45,10 @@ public class GetStepsWithoutActorAtFirstPlaceVisitor implements ScenarioVisitor 
      */
     @Override
     public void visit(MainScenario mainScenario) {
-        for (String s: mainScenario.actors)
+        for (String s: mainScenario.getActors())
             actors.add(s);
         actors.add(mainScenario.systemActor);
-        for (Step step : mainScenario.steps) {
+        for (Step step : mainScenario.getSteps()) {
             step.accept(this);
         }
     }

@@ -20,4 +20,8 @@ public class MainScenario {
     public List<Step> getSteps() {
         return List.of(this.steps);
     }
+
+    public List<String> getActors() {
+        return List.of(this.actors);
+    }
 }
