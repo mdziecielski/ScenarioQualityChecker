@@ -10,6 +10,7 @@ import org.mockito.internal.matchers.Null;
 import pl.put.poznan.checker.logic.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class ScenarioQualityCheckerTest {
@@ -194,5 +195,40 @@ class ScenarioQualityCheckerTest {
                 "1.1.testDeep\n" +
                 "1.1.1.testDeep\n" +
                 "1.1.1.1.test\n", scenarioQualityChecker.enumerateSteps());
+    }
+
+    @Test
+    void testStepsWithoutActorAtFirstWithEmptyScenario(){
+        assertEquals(Collections.emptyList(),scenarioQualityChecker.countNoActorSteps());
+    }
+
+    @Test
+    void testStepsWithoutActorAtFirstWithSimpleSteps(){
+        SimpleStep base = new SimpleStep();
+        base.setText(mockScenario.systemActor);
+        steps.add(base);
+        steps.add(base);
+        steps.add(base);
+        ArrayList<String> result = new ArrayList<String>();
+        result = scenarioQualityChecker.countNoActorSteps();
+        assertEquals(3,result.size());
+    }
+
+    @Test
+    void testStepsWithoutActorAtFirstWithComplexSteps(){
+        ComplexStep cstep = new ComplexStep();
+        SimpleStep step = new SimpleStep();
+        step.setText("");
+        cstep.setText(mockScenario.systemActor);
+        List<Step> subscenarios = new ArrayList<Step>();
+        subscenarios.add(step);
+        subscenarios.add(step);
+        step.setText(mockScenario.systemActor);
+        subscenarios.add(step);
+        subscenarios.add(step);
+        subscenarios.add(step);
+        steps.add(cstep);
+        steps.add(step);
+        assertEquals(5,scenarioQualityChecker.countNoActorSteps().size());
     }
 }
