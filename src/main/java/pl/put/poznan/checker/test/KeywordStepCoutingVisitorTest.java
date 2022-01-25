@@ -31,6 +31,15 @@ class KeywordStepCoutingVisitorTest {
     }
 
     @Test
+    void testCountKeywordsWhileNonEmptyScenarioButNoKeywords(){
+        SimpleStep step = new SimpleStep();
+        step.setText("1. Random text");
+
+        steps.add(step);
+        assertEquals(0, scenarioQualityChecker.countKeywordSteps());
+    }
+
+    @Test
     void testCountIfKeywordsWhileSingleComplexStepProvided() {
         ComplexStep complexStep = new ComplexStep();
         ArrayList <Step> subscenario = new ArrayList<>();
